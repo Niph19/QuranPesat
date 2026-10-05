@@ -3,7 +3,7 @@
 use App\Http\Controllers\QuoteController;
 use Illuminate\Support\Facades\Route;
 
-Route::resource('/', QuoteController::class);
+Route::get('/', [QuoteController::class, 'index']);
 
 Route::get('/produk/1', function () {
     return response()->json([

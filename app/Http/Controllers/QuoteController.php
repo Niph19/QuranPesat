@@ -12,12 +12,20 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        $quotes = Http::get('https://dummyjson.com/quotes');
-        $singlequote = null;
-        if($quotes->successful()){
-            $quotes = $quotes->json() ['quotes'];
-            $singlequote = $quotes[array_rand($quotes)];
+        $quotes = Http::timeout(5)->get('https://dummyjson.com/quotes');
+        $singlequote = [
+            'id' => 1,
+            'quote' => 'Your heart is the size of an ocean. Go find yourself in its hidden depths.',
+            'author' => 'Rumi',
+        ];
+
+        if ($quotes->successful()) {
+            $quoteList = $quotes->json()['quotes'] ?? [];
+            if (!empty($quoteList)) {
+                $singlequote = $quoteList[array_rand($quoteList)];
+            }
         }
+
         return view('welcome', ['quote' => $singlequote]);
     }
 
