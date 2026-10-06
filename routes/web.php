@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\QuranController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [QuoteController::class, 'index']);
@@ -92,3 +93,6 @@ Route::get('/produk', function () {
 });
 
 Route::get('/quotes', QuoteController::class . '@index');
+
+Route::resource('/quran', QuranController::class);
+// Route::get('/quran/{id}', Qr)
