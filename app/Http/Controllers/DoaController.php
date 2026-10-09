@@ -5,18 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class QuranController extends Controller
+class DoaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $response = Http::get('https://equran.id/api/v2/surat');
-        $quran = $response->json()['data'];
+        $response = Http::get('https://equran.id/api/doa/');
+        $doas = $response->json()['data'];
 
-        // $quran = $qurans[0];
-        return view('QuranPesat.quran', ['quran' => $quran]);
+        return view('QuranPesat.doa', ['doas' => $doas]);  
     }
 
     /**
@@ -38,12 +37,12 @@ class QuranController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $nomor)
+    public function show(string $id)
     {
-        $response = Http::get('https://equran.id/api/v2/surat/' . $nomor);
-        $quran = $response->json()['data'];
+        $response = Http::get('https://equran.id/api/doa/' . $id);
+        $doas = $response->json()['data'];
 
-        return view('QuranPesat.Alquran.detail', ['quran' => $quran]);
+        return view('QuranPesat.Doa.detail', ['doas' => $doas]);
     }
 
     /**

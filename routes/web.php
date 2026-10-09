@@ -1,10 +1,17 @@
 <?php
 
+use App\Http\Controllers\DoaController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\QuranController;
+use App\Http\Controllers\JadwalSalatController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [QuoteController::class, 'index']);
+
+// Jadwal Salat
+Route::get('/jadwal-salat', [JadwalSalatController::class, 'index'])->name('jadwal_salat.index');
+Route::match(['get', 'post'], '/api/jadwal-salat/kabkota', [JadwalSalatController::class, 'getKabupaten'])->name('api.jadwal_salat.kabkota');
+Route::match(['get', 'post'], '/api/jadwal-salat', [JadwalSalatController::class, 'getSalat'])->name('api.jadwal_salat');
 
 Route::get('/produk/1', function () {
     return response()->json([
@@ -95,4 +102,4 @@ Route::get('/produk', function () {
 Route::get('/quotes', QuoteController::class . '@index');
 
 Route::resource('/quran', QuranController::class);
-// Route::get('/quran/{id}', Qr)
+Route::resource('/doa', DoaController::class);
